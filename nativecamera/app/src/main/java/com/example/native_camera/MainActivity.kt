@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.native_camera.ui.theme.NativecameraTheme
-import com.example.native_camera.ui.screens.CameraPreviewView
+import com.example.native_camera.ui.screens.CameraView
 import com.example.native_camera.ui.screens.FolderView
 import com.example.native_camera.ui.screens.MainMenu
 class MainActivity : ComponentActivity() {
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     when (currentScreen) {
                         "camera" -> {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                CameraPreviewView(modifier = Modifier.padding(innerPadding))
+                                CameraView(modifier = Modifier.padding(innerPadding))
                             } else {
                                 Text(text = "Device Android version too low.", modifier = Modifier.padding(innerPadding))
                             }

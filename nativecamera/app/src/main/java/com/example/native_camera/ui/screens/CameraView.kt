@@ -15,7 +15,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun CameraPreviewView(modifier: Modifier = Modifier) {
+fun CameraView(modifier: Modifier = Modifier) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
     AndroidView(

@@ -16,7 +16,6 @@ import kotlin.coroutines.suspendCoroutine
 class ImageRepository(private val context: Context) {
 
     // A StateFlow that holds the list of local image files.
-    // This acts exactly like an RxJS BehaviorSubject or Angular Signals!
     private val _capturedImages = MutableStateFlow<List<File>>(emptyList())
     val capturedImages: StateFlow<List<File>> = _capturedImages.asStateFlow()
 
