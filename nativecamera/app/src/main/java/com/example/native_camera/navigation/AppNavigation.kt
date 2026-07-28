@@ -41,12 +41,17 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             )
         }
 
+        composable<CameraRoute> {
+            CameraView(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
 
         composable<FolderRoute> {
             FolderView(
                 onBackClick = { navController.popBackStack() },
                 onPhotoClick = { selectedFile ->
-                    // Handle photo selection
                 }
             )
         }
