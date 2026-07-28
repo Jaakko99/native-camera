@@ -17,6 +17,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.io.File
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.LocalContext
+import android.net.Uri
 
 @Composable
 fun FolderView(
@@ -26,6 +30,18 @@ fun FolderView(
 ) {
     // 1. Component State (Empty array for now)
     var imageFiles by remember { mutableStateOf(listOf<File>()) }
+    // State to hold the uri from the image chosen from the phone
+    var selectedImageUri by remember {mutableStateOf<Uri?>(null)}
+
+    // Gallery picker launcher
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        // This block runs when the user finishes picking an image
+        if ( uri != null) {
+            selectedImageUri = uri
+        }
+    }
 
     Column(
         modifier = modifier
@@ -40,6 +56,21 @@ fun FolderView(
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        Button(
+            onClick = {
+                // Launch the system picker, filtering for images only
+                galleryLauncher.launch("image/*")
+            }
+        ) {
+            Text("Pick Picture from Gallery")
+        }
+
+        if (selectedImageUri != null) {
+            Text(text = "Selected Image: $selectedImageUri")
+        } else {
+            Text(text= "No downloaded images")
+        }
+
         Text(
             text = "Your Saved Images Directory",
             style = MaterialTheme.typography.headlineSmall
@@ -47,7 +78,7 @@ fun FolderView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // 2. Conditional rendering (Our Jetpack Compose *ngIf block)
+        // 2. Conditional rendering
         if (imageFiles.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -98,4 +129,8 @@ fun PhotoGridItem(file: File, onClick: () -> Unit) {
             color = Color.White
         )
     }
+}
+
+fun downloadImage(file: File) {
+
 }
